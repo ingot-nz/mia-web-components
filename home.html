@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Carousel</title>
+    <link rel="stylesheet" href="ingot-styles.css">
+</head>
+<body>
+    <div class="home-hero container-regular">
+        <div class="carousel-container">
+            <h1 class="carousel-title">The Global Motorsport Business Community</h1>
+            <div id="carousel" class="carousel-wrapper">
+                <div class="carousel-slide active">
+                    <img src="https://cdn.ymaws.com/the-mia.site-ym.com/resource/resmgr/home_page_hero_panel/2024/aston_oct_2024.jpg" alt="F1 Aston Martin" />
+                </div>
+                <div class="carousel-indicators">
+                    <span class="indicator active"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="home-intro container-narrow row-wrapper">
+        <div class="row-item-1-2">
+            <h2>The Motorsport Industry Association’s leading business network</h2>
+        </div>
+        <div class="content-block row-item-1-2">
+            <p>As a worldwide association, the MIA now provides a network that reaches into every corner of the motorsport business community. Our members span the whole spectrum of international motorsport business, from the largest companies to the smallest private firms.</p>
+            <p>The MIA has embraced an ever-expanding international network of business contacts, the result being that today it boasts nearly 300 global members, whose companies transact more than £5 billion of motorsport business worldwide.</p>
+        </div>
+    </div>
+    <div class="home-content-boxes container-regular row-wrapper">
+        <div class="content-box is-style-red row-item-1-2">
+            <h3>Are you interested in becoming a member?</h3>
+            <ul>
+                <li>Networking opportunities with industry leaders</li>
+                <li>Access to exclusive events and resources</li>
+                <li>Stay updated with the latest industry trends</li>
+            </ul>
+        </div>
+        <div class="content-box is-style-blue row-item-1-2">
+            <h3>Content box heading</h3>
+            <div id="videoContentBox" class="video-thumbnail">
+                <img src="https://cdn.ymaws.com/the-mia.site-ym.com/resource/resmgr/home_page_hero_panel/2024/f1_start_oct_2024.jpg" alt="Video thumbnail">
+                <div class="play-button">
+                    <img src="https://cdn.ymaws.com/the-mia.com/resource/resmgr/ingot/play_button.svg" alt="Play">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="home-member-logos container-regular">
+        <h2>Join these companies and become an MIA member</h2>
+        <div class="member-carousel-wrapper">
+            <div class="member-carousel-track" id="memberCarouselTrack">
+                <!-- Member logos will be loaded here -->
+            </div>
+            <div class="member-carousel-controls">
+                <button id="memberPrevBtn" aria-label="Previous">
+                    <img src="https://cdn.ymaws.com/the-mia.com/resource/resmgr/ingot/nav-arrow-left.svg" alt="Previous">
+                </button>
+                <button id="memberNextBtn" aria-label="Next">
+                    <img src="https://cdn.ymaws.com/the-mia.com/resource/resmgr/ingot/nav-arrow-right.svg" alt="Next">
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Lightbox -->
+    <div class="lightbox" id="videoLightbox">
+        <div class="lightbox-content">
+            <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+            <iframe id="videoFrame" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <script src="ingot-scripts.js"></script>
+</body>
+</html>
