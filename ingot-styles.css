@@ -12,9 +12,6 @@
 
 */
 
-/* Fonts */
-@import url("https://use.typekit.net/yry6zfa.css");
-
 /*
 * Typography styles
 * 
@@ -26,7 +23,8 @@ body {
 
 h1,
 .is-style-heading-h1,
-.is-style-heading-h1 a {
+.is-style-heading-h1 a,
+#SpTitleBar {
     font-family: kanit, sans-serif;
     font-size: clamp(3rem, 6vw, 4.5rem);
     font-weight: 600;
@@ -109,6 +107,40 @@ ul {
 }
 .row-item-1-2 {
     width: 50%;
+}
+
+/*
+ * Header styles ==============
+ */
+
+.toolbar-out {
+    background-color: #0A3B7E;
+}
+
+.itoolbar_bg {
+    min-height: 4rem;
+    height: auto;
+    padding: 0.5rem 0;
+}
+
+/* Remove header top margin */
+#left {
+    margin-top: 0px;
+}
+
+.header-out {
+    height: 150px;
+    padding: 12px 0px;
+    top: 4rem;
+}
+
+#isearch .input-group {
+    border-radius: 0.25rem;
+}
+
+.header-social {
+    top: calc(50% - 15px);
+    height: 30px;
 }
 
 
