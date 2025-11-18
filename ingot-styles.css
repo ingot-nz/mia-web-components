@@ -233,6 +233,20 @@ h4,
     }
 }
 
+/* Homepage styles */
+#hp-main .login {
+    display: none;
+}
+
+/* Hack for full width main top area */
+#hp-left {
+    width: 100%;
+}
+
+.hp-blocks-out {
+    background-image: none;
+}
+
 /* End of global styles 
    tested on the site */
 
@@ -264,6 +278,9 @@ ul {
 }
 .row-item-1-2 {
     width: 50%;
+}
+.row-item-1-3 {
+    width: 33.3333%;
 }
 
 /*
@@ -426,17 +443,29 @@ ul {
 
 /* Media Queries */
 @media (max-width: 960px) {
+
+    .container-regular {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+
+    .container-narrow {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
     .carousel-wrapper {
         aspect-ratio: 4 / 3;
     }
-}
-@media (max-width: 768px) {
     .row-wrapper {
         flex-direction: column;
     }
-    .row-item-1-2 {
+
+    .row-item-1-2,
+    .row-item-1-3 {
         width: 100%;
     }
+}
+@media (max-width: 768px) {
     .carousel-wrapper::after {
         right: -300px;
     }
@@ -468,6 +497,7 @@ ul {
     flex-direction: column;
     padding: 2.5rem;
     gap: 2rem;
+    border-right: none;
     border-radius: 10px;
 }
 
@@ -484,12 +514,14 @@ ul {
     color: white;
 }
 
-.home-content-boxes .content-box.is-style-red {
+.home-content-boxes .content-box.is-style-red,
+#calendar-feed {
     background-color: #C1332A;
     color: white;
 }
 
-.home-content-boxes .content-box.is-style-blue {
+.home-content-boxes .content-box.is-style-blue,
+#news-feed {
     background-color: #0A3B7E;
     color: white;
 }
@@ -716,4 +748,45 @@ ul {
     .member-logo-item {
         flex: 0 0 calc(50% - 1rem);
     }
+}
+
+/* Stats Section */
+.home-stats {
+    padding-top: 2.5rem;
+    padding-bottom: 5rem;
+}
+
+.stats-wrapper {
+    gap: 30px;
+}
+
+.stat-box {
+    background: 
+        linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)),
+        url('https://cdn.ymaws.com/the-mia.com/resource/resmgr/ingot/red-halftone_1.svg');
+    background-position: -50% center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 2rem 2.5rem;
+    text-align: left;
+    border-radius: 10px;
+    border: 1px solid #0A3B7E;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.stat-icon {
+    width: 140px;
+    height: 140px;
+    object-fit: contain;
+}
+
+.stat-number {
+    color: #0A3B7E;
+}
+
+.stat-label {
+
 }
