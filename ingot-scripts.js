@@ -1,3 +1,46 @@
+/* ============================================================================
+   INGOT SCRIPTS - TABLE OF CONTENTS
+   ============================================================================
+   
+   1. CONFIGURATION & GLOBAL VARIABLES
+      - Google Sheet CSV URLs
+      - Hero carousel variables
+      - Member logo carousel variables
+   
+   2. HERO CAROUSEL
+      - fetchImagesFromGoogleSheet() - Fetches hero carousel images from Google Sheet
+      - parseCSVRow() - Parses CSV row handling quoted values
+      - buildCarousel() - Builds hero carousel HTML structure
+      - changeSlide() - Changes slide by direction (+1 or -1)
+      - goToSlide() - Jumps to specific slide by index
+      - startAutoplay() - Starts automatic slide rotation
+      - resetAutoplay() - Resets autoplay timer
+   
+   3. VIDEO CONTENT BOX & LIGHTBOX
+      - fetchVideoContentBox() - Fetches video data from Google Sheet
+      - buildVideoContentBox() - Enables/disables video functionality
+      - openLightbox() - Opens video in fullscreen lightbox
+      - closeLightbox() - Closes video lightbox
+   
+   4. MEMBER LOGO CAROUSEL
+      - fetchMemberLogos() - Fetches member logos from Google Sheet
+      - buildMemberCarousel() - Builds member carousel HTML
+      - memberSlidePrev() - Slides to previous logos
+      - memberSlideNext() - Slides to next logos
+      - updateMemberCarousel() - Updates carousel position
+      - startMemberAutoplay() - Starts automatic logo rotation
+      - resetMemberAutoplay() - Resets member carousel autoplay timer
+   
+   5. INITIALIZATION
+      - Element existence checks and function calls
+      - DOMContentLoaded event listeners for video interactions
+   
+   ============================================================================ */
+
+// ============================================================================
+// 1. CONFIGURATION & GLOBAL VARIABLES
+// ============================================================================
+
 // Configuration: Replace with your Google Sheet published CSV URLs
 // To get these URLs:
 // 1. In Google Sheets, go to File > Share > Publish to web
@@ -8,10 +51,25 @@ const GOOGLE_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR
 const VIDEO_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRcFCl8wWVnh4CUBuZig_1xrDjl_oaLELxa3tZHqa4shBr6Ff9ffiKPhcjx5cBXdy3YYV_JkoHmIHnn/pub?gid=2124855345&single=true&output=csv';
 const MEMBER_LOGOS_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRcFCl8wWVnh4CUBuZig_1xrDjl_oaLELxa3tZHqa4shBr6Ff9ffiKPhcjx5cBXdy3YYV_JkoHmIHnn/pub?gid=1102148999&single=true&output=csv';
 
+// Hero carousel variables
 let currentSlide = 0;
 let images = [];
 let autoplayInterval;
 
+// Member logo carousel variables
+let memberLogos = [];
+let memberCurrentIndex = 0;
+let memberAutoplayInterval;
+const logosPerView = 5; // Desktop: show 5 logos at a time
+
+// ============================================================================
+// 2. HERO CAROUSEL
+// ============================================================================
+
+/**
+ * Fetches hero carousel images from Google Sheet and builds the carousel
+ * Uses CORS proxy in development - remove for production
+ */
 async function fetchImagesFromGoogleSheet() {
     try {
         // ========================================
@@ -51,19 +109,16 @@ async function fetchImagesFromGoogleSheet() {
         console.log('Parsed images:', images); // Debug log
 
         if (images.length === 0) {
-            throw new Error('No images found in the Google Sheet');
+            console.log('No images found in Google Sheet - keeping static placeholder');
+            return; // Keep the static placeholder slide
         }
 
         buildCarousel();
     } catch (error) {
         console.error('Error fetching images:', error);
         console.error('Error details:', error.message);
-        document.getElementById('carousel').innerHTML = 
-            `<div class="error">
-                <p>Error loading images.</p>
-                <p style="font-size: 0.9rem; margin-top: 10px;">Error: ${error.message}</p>
-                <p style="font-size: 0.8rem; margin-top: 10px;">Try opening via a local web server or check browser console (F12)</p>
-            </div>`;
+        // Keep the static placeholder on error instead of showing error message
+        console.log('Error loading carousel - keeping static placeholder');
     }
 }
 
@@ -89,32 +144,40 @@ function parseCSVRow(row) {
     return result;
 }
 
+/**
+ * Builds the hero carousel HTML structure and sets up event listeners
+ * Adds no-animation class to first slide to prevent flicker on load
+ */
 function buildCarousel() {
-    const carousel = document.getElementById('carousel');
+    const carousel = document.getElementById('hero-carousel');
     
-    // Create slides HTML
+    // If only one image and it matches the placeholder, don't rebuild
+    if (images.length === 1 && images[0].url === 'https://cdn.ymaws.com/the-mia.site-ym.com/resource/resmgr/ingot/btcc_with_blur.jpg') {
+        return;
+    }
+    
+    // Create slides HTML - add no-animation class to first slide
     const slidesHTML = images.map((img, index) => `
-        <div class="carousel-slide ${index === 0 ? 'active' : ''}">
+        <div class="hero-carousel-slide ${index === 0 ? 'active no-animation' : ''}">
             <img src="${img.url}" alt="${img.alt}" />
         </div>
     `).join('');
 
     // Create indicators HTML
     const indicatorsHTML = images.map((_, index) => `
-        <span class="indicator ${index === 0 ? 'active' : ''}" data-index="${index}"></span>
+        <span class="hero-indicator ${index === 0 ? 'active' : ''}" data-index="${index}"></span>
     `).join('');
 
     // Build carousel structure
     carousel.innerHTML = `
         ${slidesHTML}
-        <div class="carousel-indicators">
+        <div class="hero-carousel-indicators-wrapper">
             ${indicatorsHTML}
         </div>
     `;
 
     // Add event listeners for indicators
-
-    document.querySelectorAll('.indicator').forEach(indicator => {
+    document.querySelectorAll('.hero-indicator').forEach(indicator => {
         indicator.addEventListener('click', (e) => {
             const index = parseInt(e.target.dataset.index);
             goToSlide(index);
@@ -125,12 +188,16 @@ function buildCarousel() {
     // Start autoplay with longer initial delay
     setTimeout(() => {
         startAutoplay();
-    }, 4000); // Wait 4 seconds before starting autoplay
+    }, 1000); // Wait 1 second before starting autoplay
 }
 
+/**
+ * Changes the active slide by the specified direction
+ * @param {number} direction - Direction to move (+1 for next, -1 for previous)
+ */
 function changeSlide(direction) {
-    const slides = document.querySelectorAll('.carousel-slide');
-    const indicators = document.querySelectorAll('.indicator');
+    const slides = document.querySelectorAll('.hero-carousel-slide');
+    const indicators = document.querySelectorAll('.hero-indicator');
 
     slides[currentSlide].classList.remove('active');
     indicators[currentSlide].classList.remove('active');
@@ -141,9 +208,13 @@ function changeSlide(direction) {
     indicators[currentSlide].classList.add('active');
 }
 
+/**
+ * Jumps directly to a specific slide by index
+ * @param {number} index - Index of the slide to show
+ */
 function goToSlide(index) {
-    const slides = document.querySelectorAll('.carousel-slide');
-    const indicators = document.querySelectorAll('.indicator');
+    const slides = document.querySelectorAll('.hero-carousel-slide');
+    const indicators = document.querySelectorAll('.hero-indicator');
 
     slides[currentSlide].classList.remove('active');
     indicators[currentSlide].classList.remove('active');
@@ -154,23 +225,31 @@ function goToSlide(index) {
     indicators[currentSlide].classList.add('active');
 }
 
+/**
+ * Starts automatic slide rotation every 5 seconds
+ */
 function startAutoplay() {
     autoplayInterval = setInterval(() => {
         changeSlide(1);
     }, 5000); // Change slide every 5 seconds
 }
 
+/**
+ * Resets the autoplay timer (used when user manually changes slides)
+ */
 function resetAutoplay() {
     clearInterval(autoplayInterval);
     startAutoplay();
 }
 
-// Initialize carousels when page loads
-fetchImagesFromGoogleSheet();
-fetchVideoContentBox();
-fetchMemberLogos();
+// ============================================================================
+// 3. VIDEO CONTENT BOX & LIGHTBOX
+// ============================================================================
 
-// Fetch Video Content Box data from Google Sheet
+/**
+ * Fetches video content data from Google Sheet
+ * Determines whether to enable video functionality based on sheet data
+ */
 async function fetchVideoContentBox() {
     try {
         // ========================================
@@ -208,9 +287,17 @@ async function fetchVideoContentBox() {
     }
 }
 
-// Build video content box
+/**
+ * Enables or disables video functionality on the content box
+ * @param {string} videoUrl - YouTube video URL
+ * @param {boolean} displayVideo - Whether to enable video functionality
+ */
 function buildVideoContentBox(videoUrl, displayVideo) {
     const videoBox = document.getElementById('videoContentBox');
+    
+    if (!videoBox) {
+        return;
+    }
     
     if (!videoUrl) {
         console.error('No video URL provided');
@@ -227,12 +314,102 @@ function buildVideoContentBox(videoUrl, displayVideo) {
     }
 }
 
-// Member Logo Carousel
-let memberLogos = [];
-let memberCurrentIndex = 0;
-let memberAutoplayInterval;
-const logosPerView = 5; // Desktop: show 5 logos at a time
+/**
+ * Opens a YouTube video in a fullscreen lightbox overlay
+ * Converts various YouTube URL formats to embed format
+ * @param {string} videoUrl - YouTube video URL (supports youtu.be and youtube.com formats)
+ */
+function openLightbox(videoUrl) {
+    const lightbox = document.getElementById('videoLightbox');
+    const videoFrame = document.getElementById('videoFrame');
+    
+    // Convert youtu.be URL to embed format
+    // Extract video ID and parameters from URL like: https://youtu.be/dQw4w9WgXcQ?si=fM5LnBJS8FVdtU_c
+    let videoId = '';
+    let params = '';
+    
+    if (videoUrl.includes('youtu.be/')) {
+        const parts = videoUrl.split('youtu.be/')[1].split('?');
+        videoId = parts[0];
+        params = parts[1] || '';
+    } else if (videoUrl.includes('youtube.com/watch?v=')) {
+        videoId = videoUrl.split('v=')[1].split('&')[0];
+        // Extract other parameters
+        const urlParams = videoUrl.split('?')[1];
+        if (urlParams) {
+            const paramArray = urlParams.split('&').filter(p => !p.startsWith('v='));
+            params = paramArray.join('&');
+        }
+    }
+    
+    // Build embed URL with parameters
+    let embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+    if (params) {
+        embedUrl += `&${params}`;
+    }
+    console.log('Opening video with embed URL:', embedUrl);
+    
+    videoFrame.src = embedUrl;
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
 
+/**
+ * Closes the video lightbox and stops video playback
+ */
+function closeLightbox() {
+    const lightbox = document.getElementById('videoLightbox');
+    const videoFrame = document.getElementById('videoFrame');
+    videoFrame.src = '';
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+/**
+ * Set up video lightbox event listeners
+ * - Click on video thumbnail to open lightbox
+ * - Click outside lightbox to close
+ * - Press Escape key to close
+ */
+document.addEventListener('DOMContentLoaded', function() {
+    const videoThumbnail = document.getElementById('videoContentBox');
+    if (videoThumbnail) {
+        videoThumbnail.addEventListener('click', function() {
+            // Only open lightbox if video is enabled
+            if (this.classList.contains('video-enabled')) {
+                const videoUrl = this.getAttribute('data-video-url');
+                if (videoUrl) {
+                    openLightbox(videoUrl);
+                }
+            }
+        });
+    }
+
+    // Close lightbox on background click
+    const videoLightbox = document.getElementById('videoLightbox');
+    if (videoLightbox) {
+        videoLightbox.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeLightbox();
+            }
+        });
+    }
+
+    // Close lightbox on Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && videoLightbox && videoLightbox.classList.contains('active')) {
+            closeLightbox();
+        }
+    });
+});
+
+// ============================================================================
+// 4. MEMBER LOGO CAROUSEL
+// ============================================================================
+
+/**
+ * Fetches member logos from Google Sheet and builds the carousel
+ */
 async function fetchMemberLogos() {
     try {
         const proxyUrl = 'https://corsproxy.io/?';
@@ -269,8 +446,17 @@ async function fetchMemberLogos() {
     }
 }
 
+/**
+ * Builds the member logo carousel HTML and sets up controls
+ */
 function buildMemberCarousel() {
     const track = document.getElementById('memberCarouselTrack');
+    const prevBtn = document.getElementById('memberPrevBtn');
+    const nextBtn = document.getElementById('memberNextBtn');
+    
+    if (!track || !prevBtn || !nextBtn) {
+        return;
+    }
     
     // Create logo items HTML
     const logosHTML = memberLogos.map(logo => `
@@ -282,12 +468,12 @@ function buildMemberCarousel() {
     track.innerHTML = logosHTML;
     
     // Add event listeners for controls
-    document.getElementById('memberPrevBtn').addEventListener('click', () => {
+    prevBtn.addEventListener('click', () => {
         memberSlidePrev();
         resetMemberAutoplay();
     });
     
-    document.getElementById('memberNextBtn').addEventListener('click', () => {
+    nextBtn.addEventListener('click', () => {
         memberSlideNext();
         resetMemberAutoplay();
     });
@@ -297,6 +483,9 @@ function buildMemberCarousel() {
     updateMemberCarousel();
 }
 
+/**
+ * Slides the member carousel to the previous set of logos
+ */
 function memberSlidePrev() {
     if (memberCurrentIndex > 0) {
         memberCurrentIndex--;
@@ -304,6 +493,10 @@ function memberSlidePrev() {
     }
 }
 
+/**
+ * Slides the member carousel to the next set of logos
+ * Loops back to start when reaching the end
+ */
 function memberSlideNext() {
     const maxIndex = Math.max(0, memberLogos.length - logosPerView);
     if (memberCurrentIndex < maxIndex) {
@@ -316,6 +509,9 @@ function memberSlideNext() {
     }
 }
 
+/**
+ * Updates the member carousel position and button states
+ */
 function updateMemberCarousel() {
     const track = document.getElementById('memberCarouselTrack');
     const itemWidth = track.children[0]?.offsetWidth || 0;
@@ -333,87 +529,41 @@ function updateMemberCarousel() {
     nextBtn.disabled = false; // Never disable next since we loop
 }
 
+/**
+ * Starts automatic member logo carousel rotation every 3 seconds
+ */
 function startMemberAutoplay() {
     memberAutoplayInterval = setInterval(() => {
         memberSlideNext();
     }, 3000); // Slide every 3 seconds
 }
 
+/**
+ * Resets the member carousel autoplay timer
+ */
 function resetMemberAutoplay() {
     clearInterval(memberAutoplayInterval);
     startMemberAutoplay();
 }
 
-// Video Lightbox Functions
-function openLightbox(videoUrl) {
-    const lightbox = document.getElementById('videoLightbox');
-    const videoFrame = document.getElementById('videoFrame');
-    
-    // Convert youtu.be URL to embed format
-    // Extract video ID and parameters from URL like: https://youtu.be/dQw4w9WgXcQ?si=fM5LnBJS8FVdtU_c
-    let videoId = '';
-    let params = '';
-    
-    if (videoUrl.includes('youtu.be/')) {
-        const parts = videoUrl.split('youtu.be/')[1].split('?');
-        videoId = parts[0];
-        params = parts[1] || '';
-    } else if (videoUrl.includes('youtube.com/watch?v=')) {
-        videoId = videoUrl.split('v=')[1].split('&')[0];
-        // Extract other parameters
-        const urlParams = videoUrl.split('?')[1];
-        if (urlParams) {
-            const paramArray = urlParams.split('&').filter(p => !p.startsWith('v='));
-            params = paramArray.join('&');
-        }
-    }
-    
-    // Build embed URL with parameters
-    let embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-    if (params) {
-        embedUrl += `&${params}`;
-    }
-    console.log('Opening video with embed URL:', embedUrl);
-    
-    videoFrame.src = embedUrl;
-    lightbox.classList.add('active');
-    document.body.style.overflow = 'hidden';
+// ============================================================================
+// 5. INITIALIZATION
+// ============================================================================
+
+/**
+ * Initialize all components when DOM is ready
+ * Checks for element existence before initializing each component
+ */
+
+// Initialize carousels and video content box when page loads
+if (document.getElementById('hero-carousel')) {
+    fetchImagesFromGoogleSheet();
+}
+if (document.getElementById('videoContentBox')) {
+    fetchVideoContentBox();
+}
+if (document.getElementById('memberCarouselTrack')) {
+    fetchMemberLogos();
 }
 
-function closeLightbox() {
-    const lightbox = document.getElementById('videoLightbox');
-    const videoFrame = document.getElementById('videoFrame');
-    videoFrame.src = '';
-    lightbox.classList.remove('active');
-    document.body.style.overflow = '';
-}
 
-// Add click event to video thumbnail
-document.addEventListener('DOMContentLoaded', function() {
-    const videoThumbnail = document.getElementById('videoContentBox');
-    if (videoThumbnail) {
-        videoThumbnail.addEventListener('click', function() {
-            // Only open lightbox if video is enabled
-            if (this.classList.contains('video-enabled')) {
-                const videoUrl = this.getAttribute('data-video-url');
-                if (videoUrl) {
-                    openLightbox(videoUrl);
-                }
-            }
-        });
-    }
-
-    // Close lightbox on background click
-    document.getElementById('videoLightbox').addEventListener('click', function(e) {
-        if (e.target === this) {
-            closeLightbox();
-        }
-    });
-
-    // Close lightbox on Escape key
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            closeLightbox();
-        }
-    });
-});
