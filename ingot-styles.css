@@ -305,6 +305,7 @@ ul {
 .home-hero {
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
+    margin-top: 140px;
 }
 
 .carousel-container {
@@ -394,7 +395,7 @@ ul {
     display: none;
 }
 
-.carousel-indicators {
+.carousel-indicators-wrapper {
     position: absolute;
     bottom: 3rem;
     left: 3rem;
