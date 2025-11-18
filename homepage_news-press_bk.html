@@ -1,0 +1,81 @@
+<style>
+    .euros {float: left; width: 2%; }
+    #euros-aligned {float: right; width: 91%; }
+</style>
+<!-- Statistics Starts -->
+<div class="icon-stats-out">
+    <div class="lg-container">
+        <div class="icon-stats">
+            <h2>We boast a global network of members:</h2>
+            <div class="row" id="stat-counter">
+                <!-- Column 1 -->
+                <div class="col-sm-4 stat-col">
+                    <div class="stat-icon">
+                        <i class="far fa-building"></i>
+                    </div>
+                    <div class="stat-text">
+                        <p><span class="stat-value" number-count="250">0</span> Members</p>
+                    </div>
+                </div>
+                <!-- Column 2 -->
+                <div class="col-sm-4 stat-col">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-text">
+                        <p><span class="stat-value" number-count="2000">0</span> Contacts</p>
+                    </div>
+                </div>
+                <!-- Column 3 -->
+                <div class="col-sm-4 stat-col">
+                    <div class="stat-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div class="stat-text">
+                        <p><span class="euros">£</span><span id="euros-aligned" class="stat-value" number-count="5000000000">0</span> Motorsport Business Transacted</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Become A Member Starts -->
+<div class="banner-cta-out">
+    <div class="lg-container">
+        <div class="banner-cta">
+            <h3>Become a member today!</h3>
+            <p>Talk to us and find out why you too should join our community of members spanning motorsport and high performance engineering</p>
+            <a href="/page/Membership" class="border-btn">Click to Join</a>
+        </div>
+    </div>
+</div>
+<!-- Script for counter below -->
+<script>
+    var a = 0;
+    $(window).scroll(function() {
+      var oTop = $('#stat-counter').offset().top - window.innerHeight;
+      if (a == 0 && $(window).scrollTop() > oTop) {
+        $('.stat-value').each(function() {
+          var $this = $(this),
+            countTo = $this.attr('number-count');
+          $({
+            countNum: $this.text()
+          }).animate({
+              countNum: countTo
+            },
+            {
+              duration: 3500,
+              easing: 'swing',
+                       step: function() {
+                        $this.text(Math.floor(this.countNum).toLocaleString());
+                      },
+                      complete: function() {
+                        $this.text(Number(this.countNum).toLocaleString());;
+                        //alert('finished');
+              }
+            });
+        });
+        a = 1;
+      }
+    });
+</script>

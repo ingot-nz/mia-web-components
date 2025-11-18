@@ -12,18 +12,27 @@
 
 */
 
+/* Ingot custom styles */
 /*
 * Typography styles
 * 
 */
 
-body {
+html {
+    font-size: 16px;
+}
+
+body,
+input,
+select,
+textarea,
+td,
+th {
     font-family: kanit, sans-serif;
 }
 
 h1,
 .is-style-heading-h1,
-.is-style-heading-h1 a,
 #SpTitleBar {
     font-family: kanit, sans-serif;
     font-size: clamp(3rem, 6vw, 4.5rem);
@@ -79,6 +88,154 @@ h4,
     line-height: 1.1;
 }
 
+/*
+ * Header styles ==============
+ */
+
+#SpTitleBar {
+    padding: 3rem 0;
+}
+
+.toolbar-out {
+    background-color: #0A3B7E;
+}
+
+.toolbar-out .container,
+.header-out .container,
+.mainmenu-out .container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+@media (max-width: 1200px) {
+
+    .toolbar-out .container,
+    .header-out .container,
+    .mainmenu-out .container {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+}
+
+#itoolbar_bg {
+    min-height: 3rem;
+    height: auto;
+    padding: 0.5rem 0;
+}
+
+#itoolbar a {
+    font-size: 1rem;
+    text-shadow: none;
+    text-transform: none;
+}
+
+#itoolbar a:hover {
+    color: #d32f2f;
+}
+
+/* Remove background image */
+#sp-main::before {
+    background: none;
+    height: 0;
+}
+
+#sp-content {
+    padding-top: 140px !important;
+}
+
+/* Remove header top margin */
+#sp-main #left {
+    margin-top: 0px;
+}
+
+.header-out {
+    height: 100px;
+    padding: 12px 0px;
+    top: 3rem;
+    background-color: #336699;
+    border-bottom: 1px solid #0A3B7E;
+}
+
+#isearch .input-group {
+    border-radius: 0.25rem;
+}
+
+.header-social {
+    top: calc(50% - 15px);
+    height: 30px;
+}
+
+#logo img {
+    max-height: 80px;
+}
+
+#logo {
+    margin-top: 0 !important;
+}
+
+.navbar-nav {
+    margin-top: -100px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    display: flex;
+    justify-content: center;
+}
+
+.navbar-collapse {
+    padding: 0;
+}
+
+.navbar-nav>li>a {
+    font-size: 1.25rem;
+    font-weight: 400;
+    text-transform: none;
+    text-shadow: none;
+}
+
+@media (max-width: 1200px) {
+    .navbar-nav {
+        transform: translateX(0);
+        left: auto;
+        right: 0;
+        width: auto;
+    }
+
+    .navbar-nav>li>a {
+        font-size: 1rem;
+    }
+
+    .header-social {
+        display: none;
+    }
+}
+
+#sp-content #topTitleOut {
+    padding-top: 4rem;
+    padding-left: 5rem;
+    padding-right: 5rem;
+    margin-bottom: 0;
+}
+
+#sp-content #topTitleOut .container {
+    padding-left: 0;
+    padding-right: 0;
+    width: 100%;
+}
+
+@media (max-width: 1100px) {
+    #sp-content #topTitleOut {
+        padding-top: 3rem;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+        margin-bottom: 0;
+    }
+}
+
+/* End of global styles 
+   tested on the site */
+
 ul {
     margin-left: 1.5rem;
     list-style-type: disc;
@@ -117,7 +274,7 @@ ul {
     background-color: #0A3B7E;
 }
 
-.itoolbar_bg {
+#itoolbar_bg {
     min-height: 4rem;
     height: auto;
     padding: 0.5rem 0;
@@ -145,7 +302,6 @@ ul {
 
 
 /* Home hero carousel */
-
 .home-hero {
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
@@ -306,7 +462,7 @@ ul {
     gap: 1rem;
 }
 
-.content-box {
+.home-content-boxes .content-box {
     display: flex;
     flex-direction: column;
     padding: 2.5rem;
@@ -314,12 +470,25 @@ ul {
     border-radius: 10px;
 }
 
-.content-box.is-style-red {
+.content-box.is-style-red h2,
+.content-box.is-style-blue h2,
+.content-box.is-style-red h3,
+.content-box.is-style-blue h3 
+.content-box.is-style-red h4,
+.content-box.is-style-blue h4,
+.content-box.is-style-red h5,
+.content-box.is-style-blue h5,
+.content-box.is-style-red h6,
+.content-box.is-style-blue h6 {
+    color: white;
+}
+
+.home-content-boxes .content-box.is-style-red {
     background-color: #C1332A;
     color: white;
 }
 
-.content-box.is-style-blue {
+.home-content-boxes .content-box.is-style-blue {
     background-color: #0A3B7E;
     color: white;
 }
