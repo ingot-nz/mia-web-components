@@ -12,11 +12,13 @@
 
 */
 
-/* Ingot custom styles */
-/*
-* Typography styles
-* 
-*/
+/* =============================================
+   Ingot custom global styles starts
+   ============================================= */
+
+/**
+ * Typography styles
+ */
 
 html {
     font-size: 16px;
@@ -92,8 +94,8 @@ h4,
     line-height: 1.1;
 }
 
-/*
- * Header styles ==============
+/**
+ * Header styles
  */
 
 #SpTitleBar {
@@ -177,28 +179,30 @@ h4,
     margin-top: 0 !important;
 }
 
-.navbar-nav {
-    margin-top: -100px;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 800px;
-    display: flex;
-    justify-content: center;
+@media screen and (min-width: 768px) {
+    .navbar-nav {
+        margin-top: -100px;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 800px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .navbar-collapse {
+        padding: 0;
+    }
+
+    .navbar-nav>li>a {
+        font-size: 1.25rem;
+        font-weight: 400;
+        text-transform: none;
+        text-shadow: none;
+    }
 }
 
-.navbar-collapse {
-    padding: 0;
-}
-
-.navbar-nav>li>a {
-    font-size: 1.25rem;
-    font-weight: 400;
-    text-transform: none;
-    text-shadow: none;
-}
-
-@media (max-width: 1200px) {
+@media screen and (min-width: 768px) and (max-width: 1200px) {
     .navbar-nav {
         transform: translateX(0);
         left: auto;
@@ -237,7 +241,9 @@ h4,
     }
 }
 
-/* Homepage styles */
+/* 
+ * Homepage styles 
+ */
 #hp-main .login {
     display: none;
 }
@@ -251,8 +257,9 @@ h4,
     background-image: none;
 }
 
-/* End of global styles 
-   tested on the site */
+/* =============================================
+   End of Ingot custom global styles
+   ============================================= */
 
 ul {
     margin-left: 1.5rem;
@@ -347,6 +354,23 @@ ul {
     .grid-columns-4 {
         grid-template-columns: repeat(1, minmax(0, 1fr));
     }
+}
+
+/* Button styles */
+.cta-button a {
+    display: inline-block;
+    background-color: transparent;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1.125rem;
+    text-transform: uppercase;
+    border: 1px solid white;
+    transition: background-color 0.3s ease;
+}
+.cta-button a:hover {
+    background-color: #fefefe30;
 }
 
 /*
