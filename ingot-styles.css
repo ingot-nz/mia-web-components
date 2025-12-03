@@ -188,9 +188,9 @@ ul {
 .hero-carousel-wrapper {
     position: relative;
     width: 100%;
-    aspect-ratio: 16 / 9;
     background-color: #0A3B7E;
     overflow: hidden;
+    height: 70vh;
     border-radius: 10px;
 }
 
@@ -289,6 +289,7 @@ ul {
 
     .hero-carousel-wrapper {
         aspect-ratio: 4 / 3;
+            height: auto;
     }
 }
 
