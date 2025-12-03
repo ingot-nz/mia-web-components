@@ -31,7 +31,11 @@
       - startMemberAutoplay() - Starts automatic logo rotation
       - resetMemberAutoplay() - Resets member carousel autoplay timer
    
-   5. INITIALIZATION
+   5. EVENT TABLE OF CONTENTS SCROLL SPY
+      - initEventTocScrollSpy() - Initializes scroll-based TOC highlighting
+      - updateEventTocActive() - Updates active TOC item based on scroll position
+   
+   6. INITIALIZATION
       - Element existence checks and function calls
       - DOMContentLoaded event listeners for video interactions
    
@@ -547,7 +551,65 @@ function resetMemberAutoplay() {
 }
 
 // ============================================================================
-// 5. INITIALIZATION
+// 5. EVENT TABLE OF CONTENTS SCROLL SPY
+// ============================================================================
+
+/**
+ * Initializes scroll-based table of contents highlighting
+ * Highlights the TOC link corresponding to the currently visible section
+ */
+function initEventTocScrollSpy() {
+    const tocLinks = document.querySelectorAll('.event-toc a');
+    const sections = document.querySelectorAll('.event-content[id^="section-"]');
+    
+    if (tocLinks.length === 0 || sections.length === 0) return;
+    
+    /**
+     * Updates the active state of TOC links based on scroll position
+     */
+    function updateEventTocActive() {
+        const scrollPosition = window.scrollY + 200; // Offset for sticky header
+        
+        let currentSection = '';
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                currentSection = section.getAttribute('id');
+            }
+        });
+        
+        tocLinks.forEach(link => {
+            const linkHref = link.getAttribute('href').substring(1); // Remove # from href
+            const parentLi = link.parentElement;
+            
+            if (linkHref === currentSection) {
+                parentLi.classList.add('active');
+            } else {
+                parentLi.classList.remove('active');
+            }
+        });
+    }
+    
+    // Initial check
+    updateEventTocActive();
+    
+    // Update on scroll with throttling for performance
+    let scrollTimeout;
+    window.addEventListener('scroll', () => {
+        if (scrollTimeout) {
+            window.cancelAnimationFrame(scrollTimeout);
+        }
+        scrollTimeout = window.requestAnimationFrame(() => {
+            updateEventTocActive();
+        });
+    });
+}
+
+// ============================================================================
+// 6. INITIALIZATION
 // ============================================================================
 
 /**
@@ -564,6 +626,9 @@ if (document.getElementById('videoContentBox')) {
 }
 if (document.getElementById('memberCarouselTrack')) {
     fetchMemberLogos();
+}
+if (document.querySelector('.event-toc')) {
+    initEventTocScrollSpy();
 }
 
 

@@ -12,254 +12,6 @@
 
 */
 
-/* =============================================
-   Ingot custom global styles starts
-   ============================================= */
-
-/**
- * Typography styles
- */
-
-html {
-    font-size: 16px;
-}
-
-body,
-input,
-select,
-textarea,
-td,
-th {
-    font-family: kanit, sans-serif;
-    color: #0D0D0D;
-}
-
-h1,
-.is-style-heading-h1,
-#SpTitleBar {
-    font-family: kanit, sans-serif;
-    font-size: clamp(3rem, 6vw, 4.5rem);
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    line-height: 1.05;
-    color: #0A3B7E;
-}
-
-h2,
-.is-style-heading-h2 {
-    font-family: kanit, sans-serif;
-    font-size: clamp(3rem, 4vw, 3rem);
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    line-height: 1.1;
-    color: #0A3B7E;
-}
-
-h3,
-.is-style-heading-h3 {
-    font-family: kanit, sans-serif;
-    font-size: clamp(2.25rem, 3vw, 2.25rem);
-    font-style: normal;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    line-height: 1.1;
-    color: #0A3B7E;
-}
-
-h4,
-.is-style-heading-h4 {
-    font-family: kanit, sans-serif;
-    font-size: clamp(1.75rem, 2vw, 2rem);
-    font-style: normal;
-    font-weight: 400;
-    letter-spacing: -0.01em;
-    line-height: 1.1;
-}
-
-.is-style-heading-h5 {
-    font-family: kanit, sans-serif;
-    font-size: 1.5rem;
-    font-style: normal;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    line-height: 1.1;
-}
-
-.is-style-heading-h6 {
-    font-family: kanit, sans-serif;
-    font-size: 1.5rem;
-    font-style: normal;
-    font-weight: 400;
-    letter-spacing: -0.01em;
-    line-height: 1.1;
-}
-
-/**
- * Header styles
- */
-
-#SpTitleBar {
-    padding: 3rem 0;
-}
-
-.toolbar-out {
-    background-color: #0A3B7E;
-}
-
-.toolbar-out .container,
-.header-out .container,
-.mainmenu-out .container {
-    padding-left: 2rem;
-    padding-right: 2rem;
-}
-
-@media (max-width: 1200px) {
-
-    .toolbar-out .container,
-    .header-out .container,
-    .mainmenu-out .container {
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
-    }
-}
-
-#itoolbar_bg {
-    min-height: 3rem;
-    height: auto;
-    padding: 0.5rem 0;
-}
-
-#itoolbar a {
-    font-size: 1rem;
-    text-shadow: none;
-    text-transform: none;
-}
-
-#itoolbar a:hover {
-    color: #d32f2f;
-}
-
-/* Remove background image */
-#sp-main::before {
-    background: none;
-    height: 0;
-}
-
-#sp-content {
-    padding-top: 140px !important;
-}
-
-/* Remove header top margin */
-#sp-main #left {
-    margin-top: 0px;
-}
-
-.header-out {
-    height: 100px;
-    padding: 12px 0px;
-    top: 3rem;
-    background-color: #336699;
-    border-bottom: 1px solid #0A3B7E;
-}
-
-#isearch .input-group {
-    border-radius: 0.25rem;
-}
-
-.header-social {
-    top: calc(50% - 15px);
-    height: 30px;
-}
-
-#logo img {
-    max-height: 80px;
-}
-
-#logo {
-    margin-top: 0 !important;
-}
-
-@media screen and (min-width: 768px) {
-    .navbar-nav {
-        margin-top: -100px;
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 800px;
-        display: flex;
-        justify-content: center;
-    }
-
-    .navbar-collapse {
-        padding: 0;
-    }
-
-    .navbar-nav>li>a {
-        font-size: 1.25rem;
-        font-weight: 400;
-        text-transform: none;
-        text-shadow: none;
-    }
-}
-
-@media screen and (min-width: 768px) and (max-width: 1200px) {
-    .navbar-nav {
-        transform: translateX(0);
-        left: auto;
-        right: 0;
-        width: auto;
-    }
-
-    .navbar-nav>li>a {
-        font-size: 1rem;
-    }
-
-    .header-social {
-        display: none;
-    }
-}
-
-#sp-content #topTitleOut {
-    padding-top: 4rem;
-    padding-left: 5rem;
-    padding-right: 5rem;
-    margin-bottom: 0;
-}
-
-#sp-content #topTitleOut .container {
-    padding-left: 0;
-    padding-right: 0;
-    width: 100%;
-}
-
-@media (max-width: 1100px) {
-    #sp-content #topTitleOut {
-        padding-top: 3rem;
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
-        margin-bottom: 0;
-    }
-}
-
-/* 
- * Homepage styles 
- */
-#hp-main .login {
-    display: none;
-}
-
-/* Hack for full width main top area */
-#hp-left {
-    width: 100%;
-}
-
-.hp-blocks-out {
-    background-image: none;
-}
-
-/* =============================================
-   End of Ingot custom global styles
-   ============================================= */
 
 ul {
     margin-left: 1.5rem;
@@ -880,3 +632,207 @@ ul {
     color: #0A3B7E;
 }
 
+/* Event Template Styles */
+.event-container {
+    display:flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    position: relative;
+}
+.event-wrapper h2 {
+    
+}
+.event-wrapper h3 {
+    font-size: 1.25rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    color: #336699;
+}
+.event-wrapper h4 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+.event-wrapper h5 { /* Regular text in bold */
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+/* Event Table of Contents */
+.event-toc {
+    position: sticky;
+    top: 10px;
+    align-self: flex-start;
+}
+.event-toc ul {
+    list-style-type: none;
+    margin-left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+.event-toc ul li {
+    border: 1px solid #0A3B7E;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+.event-toc ul li.active {
+    background-color: #0A3B7E;
+}
+.event-toc ul li a {
+    padding: 0.5rem 0.75rem;
+    display: block;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    color: #0A3B7E;
+}
+.event-toc ul li.active a {
+    color: white;
+}
+
+.event-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+}
+.event-content,
+.event-divider {
+    max-width: 900px;
+}
+.event-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.event-divider {
+    height: 5rem;
+    background: url(https://cdn.ymaws.com/the-mia.site-ym.com/resource/resmgr/ingot/checkered-pattern.png);
+    background-size: contain;
+    background-repeat: repeat-x;
+    border: none;
+}
+@media (max-width: 768px) {
+    .event-wrapper {
+        gap: 3rem;
+    }
+    .event-divider {
+        height: 3rem;
+    }
+}
+
+/* Event gallery */
+.event-gallery {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+}
+@media (max-width: 768px) {
+    .event-gallery {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+}
+.event-gallery img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    object-fit: cover;
+    aspect-ratio: 4 / 3;
+}
+
+/* Discussion Leaders Grid */
+.discussion-leaders-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.25rem;
+}
+@media (max-width: 900px) {
+    .discussion-leaders-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+@media (max-width: 768px) {
+    .discussion-leaders-grid {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+}
+.person-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    object-fit: cover;
+    aspect-ratio: 1 / 1;
+}
+
+/* Exhibitors Gallery */
+.exhibitors-gallery {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.25rem;
+}
+@media (max-width: 900px) {
+    .exhibitors-gallery {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+@media (max-width: 768px) {
+    .exhibitors-gallery {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+.exhibitor-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    object-fit: contain;
+    aspect-ratio: 4 / 3;
+}
+
+/* Price box */
+.price-box {
+    border: 1px solid #0A3B7E;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    overflow: hidden;
+}
+.price-details {
+    background-color: #F4F4F4;
+    color: #0A3B7E;
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.price-inner {
+    padding: 1.5rem;
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.price-box h4 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+.price-inner .cta-button a {
+    border-color: #0A3B7E;
+    color: #0A3B7E;
+}
+.price-details {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    width: 50%;
+}
+
+@media (max-width: 768px) {
+    .price-box {
+        flex-direction: column;
+    }
+    .price-inner,
+    .price-details {
+        width: 100%;
+    }
+
+}
