@@ -314,7 +314,9 @@ ul {
 .home-intro {
     padding-top: 5rem;
     padding-bottom: 5rem;
-    gap: 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 }
 
 .home-intro h2 {
@@ -328,7 +330,9 @@ ul {
 .home-content-boxes {
     padding-top: 1.5rem;
     padding-bottom: 5rem;
-    gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 }
 
 .home-content-boxes .content-box {
@@ -601,6 +605,9 @@ ul {
 .home-stats {
     padding-top: 2.5rem;
     padding-bottom: 5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 }
 
 .stats-wrapper {

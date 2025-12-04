@@ -1,0 +1,117 @@
+/* Begin custom CSS entered by YM to fix mobile responsive footer spacing and mobile responsive login button homepage. DO NOT DELETE */
+
+@media only screen and (max-width: 420px) {
+    div#footer-col3 {
+        margin-top: 0px !important;
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    .login .formbutton {
+        width: 42% !important;
+    }
+}
+
+/* End custom CSS entered by YM to fix mobile responsive footer spacing and mobile responsive login button homepage. DO NOT DELETE */
+
+div#pnlGoogleMap {
+    display: none !important;
+}
+
+span#map_link {
+    display: none !important;
+}
+
+.fa {
+    display: none !important;
+}
+
+.login {
+    background-image: url(/the-mia.site-ym.com/resource/resmgr/images/carbon-fiber-background.jpg);
+}
+
+.hp-blocks-out {
+    background-image: url(/the-mia.site-ym.com/graphics/feed-bg.jpg);
+}
+
+.banner-cta-out {
+    background-image: url(/the-mia.site-ym.com/graphics/bottom-bg.jpg);
+}
+
+.login .formbutton {
+    background: #cf0a2c;
+    width: 26%;
+}
+
+/* Commented out by Ingot
+h2 {font-size:24px !important;
+    color:#434752 !important;}
+h3 {font-size:22px !important;
+    color:#336699 !important;}
+*/
+#FooterContentArea {
+    background-color: #336699;
+
+}
+
+#icopyright {
+    background-color: #336699;
+}
+
+#ad-wrapper {
+    background-color: rgba(51, 102, 153, 0.9);
+}
+
+.stat-col {
+    color: #336699;
+}
+
+.hp-intro-out {
+    background-image: url(https://cdn.ymaws.com/the-mia.site-ym.com/graphics/pattern-bg.png);
+}
+
+a {
+    color: #336699;
+}
+
+a:hover {
+    color: #cf0a2c;
+}
+
+.dropdown-menu>.open>a,
+.dropdown-menu li a:hover,
+.dropdown-menu li a:focus {
+    background-color: #336699 !important;
+}
+
+.ad-block {
+    padding-top: 40px;
+}
+
+#news-feed .rss-box {
+    margin-top: -30px;
+}
+
+#ctl00_PageContent_rblPaymentOptions_1 {
+    div style: inline-table;
+    float: left;
+}
+
+.FormTable1 div {
+    margin: 2px;
+}
+
+#sp-main::before {
+    background-image: url(/the-mia.site-ym.com/resource/resmgr/home_page_hero_panel/feb_2020/wecr.jpg);
+    background-position-y: -175px;
+    height: 485px;
+}
+
+#left,
+#right {
+    margin-top: 485px;
+}
+
+#sp-content {
+    padding-top: 150px !important;
+}
