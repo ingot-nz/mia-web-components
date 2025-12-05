@@ -64,7 +64,6 @@ let autoplayInterval;
 let memberLogos = [];
 let memberCurrentIndex = 0;
 let memberAutoplayInterval;
-const logosPerView = 5; // Desktop: show 5 logos at a time
 
 // ============================================================================
 // 2. HERO CAROUSEL
@@ -498,10 +497,26 @@ function memberSlidePrev() {
 }
 
 /**
+ * Gets the number of logos visible based on screen width
+ * @returns {number} Number of logos per view
+ */
+function getLogosPerView() {
+    const width = window.innerWidth;
+    if (width <= 768) {
+        return 2; // Mobile: 2 logos
+    } else if (width <= 1200) {
+        return 4; // Tablet: 4 logos
+    } else {
+        return 5; // Desktop: 5 logos
+    }
+}
+
+/**
  * Slides the member carousel to the next set of logos
  * Loops back to start when reaching the end
  */
 function memberSlideNext() {
+    const logosPerView = getLogosPerView();
     const maxIndex = Math.max(0, memberLogos.length - logosPerView);
     if (memberCurrentIndex < maxIndex) {
         memberCurrentIndex++;
@@ -527,6 +542,7 @@ function updateMemberCarousel() {
     // Update button states
     const prevBtn = document.getElementById('memberPrevBtn');
     const nextBtn = document.getElementById('memberNextBtn');
+    const logosPerView = getLogosPerView();
     const maxIndex = Math.max(0, memberLogos.length - logosPerView);
     
     prevBtn.disabled = memberCurrentIndex === 0;
@@ -626,6 +642,21 @@ if (document.getElementById('videoContentBox')) {
 }
 if (document.getElementById('memberCarouselTrack')) {
     fetchMemberLogos();
+    
+    // Handle window resize for responsive carousel
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            // Reset to first slide if current index is out of bounds
+            const logosPerView = getLogosPerView();
+            const maxIndex = Math.max(0, memberLogos.length - logosPerView);
+            if (memberCurrentIndex > maxIndex) {
+                memberCurrentIndex = maxIndex;
+            }
+            updateMemberCarousel();
+        }, 250); // Debounce resize events
+    });
 }
 if (document.querySelector('.event-toc')) {
     initEventTocScrollSpy();

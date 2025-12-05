@@ -359,7 +359,7 @@ ul {
 
 .home-content-boxes .content-box.is-style-red,
 #calendar-feed {
-    background-color: #C1332A;
+    background-color: #C1332A !important;
     color: white;
 }
 
@@ -463,6 +463,7 @@ ul {
     width: 90%;
     max-width: 1200px;
     aspect-ratio: 16 / 9;
+    max-height: calc(100vh - 100px);
 }
 
 .lightbox-close {
