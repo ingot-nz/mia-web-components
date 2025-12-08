@@ -315,7 +315,7 @@ ul {
     padding-top: 5rem;
     padding-bottom: 5rem;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 2rem;
 }
 
@@ -331,7 +331,7 @@ ul {
     padding-top: 1.5rem;
     padding-bottom: 5rem;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 2rem;
 }
 
