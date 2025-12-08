@@ -335,6 +335,10 @@ ul {
     gap: 2rem;
 }
 
+.home-content-boxes.is-feed {
+    flex-direction: column;
+}
+
 .home-content-boxes .content-box {
     display: flex;
     flex-direction: column;
