@@ -34,7 +34,7 @@ h1,
 h2,
 .is-style-heading-h2 {
     font-family: kanit, sans-serif;
-    font-size: clamp(3rem, 4vw, 3rem);
+    font-size: clamp(2rem, 4vw, 3rem);
     font-weight: 600;
     letter-spacing: -0.01em;
     line-height: 1.1;
@@ -44,7 +44,7 @@ h2,
 h3,
 .is-style-heading-h3 {
     font-family: kanit, sans-serif;
-    font-size: clamp(2.25rem, 3vw, 2.25rem);
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
     font-style: normal;
     font-weight: 600;
     letter-spacing: -0.01em;
@@ -55,7 +55,7 @@ h3,
 h4,
 .is-style-heading-h4 {
     font-family: kanit, sans-serif;
-    font-size: clamp(1.75rem, 2vw, 2rem);
+    font-size: clamp(1.5rem, 2vw, 2rem);
     font-style: normal;
     font-weight: 400;
     letter-spacing: -0.01em;
@@ -197,7 +197,7 @@ h4,
     }
 
     .navbar-nav>li>a {
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
 
     .header-social {
@@ -241,6 +241,26 @@ h4,
 
 .hp-blocks-out {
     background-image: none;
+    gap: 1.5rem;
+}
+
+.content-box.is-style-red .cta-button a:hover,
+#calendar-feed .cta-button a:hover {
+    background-color: white;
+    color: #C1332A;
+}
+
+#news-feed .cta-button a:hover {
+    background-color: white;
+    color: #0A3B7E;
+}
+
+/* 
+ * Footer
+ */
+
+.footer ul {
+    margin: 0;
 }
 
 /* =============================================
