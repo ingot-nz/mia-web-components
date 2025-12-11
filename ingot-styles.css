@@ -670,8 +670,8 @@ ul {
     position: relative;
     gap: 2.5rem;
 }
-.event-wrapper h2 {
-    
+.event-wrapper p {
+    margin: 0;
 }
 .event-wrapper h3 {
     font-size: 1.25rem;
@@ -799,6 +799,11 @@ ul {
         grid-template-columns: repeat(1, minmax(0, 1fr));
     }
 }
+.person-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
 .person-item img {
     width: 100%;
     height: auto;
@@ -878,6 +883,10 @@ ul {
 .price-inner .cta-button a {
     border-color: #0A3B7E;
     color: #0A3B7E;
+}
+.price-inner .cta-button a:hover {
+    background-color: #0A3B7E;
+    color: white;
 }
 .price-details {
     display: grid;
