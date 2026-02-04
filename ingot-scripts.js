@@ -75,12 +75,7 @@ let memberAutoplayInterval;
  */
 async function fetchImagesFromGoogleSheet() {
     try {
-        // ========================================
-        // PRODUCTION NOTE: Remove CORS proxy when deploying to production server
-        // Replace the next two lines with: const url = GOOGLE_SHEET_CSV_URL;
-        // ========================================
-        const proxyUrl = 'https://corsproxy.io/?';
-        const url = proxyUrl + encodeURIComponent(GOOGLE_SHEET_CSV_URL);
+        const url = GOOGLE_SHEET_CSV_URL;
         
         const response = await fetch(url, {
             method: 'GET',
@@ -255,11 +250,7 @@ function resetAutoplay() {
  */
 async function fetchVideoContentBox() {
     try {
-        // ========================================
-        // PRODUCTION NOTE: Remove CORS proxy when deploying to production server
-        // ========================================
-        const proxyUrl = 'https://corsproxy.io/?';
-        const url = proxyUrl + encodeURIComponent(VIDEO_SHEET_CSV_URL);
+        const url = VIDEO_SHEET_CSV_URL;
         
         const response = await fetch(url);
         if (!response.ok) {
@@ -415,8 +406,7 @@ document.addEventListener('DOMContentLoaded', function() {
  */
 async function fetchMemberLogos() {
     try {
-        const proxyUrl = 'https://corsproxy.io/?';
-        const url = proxyUrl + encodeURIComponent(MEMBER_LOGOS_CSV_URL);
+        const url = MEMBER_LOGOS_CSV_URL;
         
         const response = await fetch(url);
         if (!response.ok) {

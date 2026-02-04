@@ -51,6 +51,9 @@ ul {
 .row-item-1-4 {
     width: 25%;
 }
+.row-item-3-4 {
+    width: 75%;
+}
 
 /* Flex wrap style */
 .row-wrapper.is-grid-wrap {
